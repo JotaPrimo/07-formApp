@@ -6,7 +6,7 @@ import { delay, Observable, of } from 'rxjs';
 export class EmailValidator implements AsyncValidator {
 
   // AbstractControl se assemelha a um formControl
-  validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+  /* validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     console.log(control);
 
     const email = control.value;
@@ -20,5 +20,30 @@ export class EmailValidator implements AsyncValidator {
     }).pipe(
       delay(2000)
     )
-  }
+  } */
+
+    validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+      console.log(control);
+
+      const email = control.value;
+      const valorObtido = "gestald118@gmail.com"; // suponha que isso foi resultado de uma req http
+
+      console.log({email});
+
+      const httpCallObservable = new Observable<ValidationErrors|null>( (subscriber) => {
+        console.log({ email });
+        if(email === valorObtido) {
+          subscriber.next({ emailTaken: true });
+          subscriber.complete(); // isto finaliza corretatamente o observable
+          return;
+        }
+
+        // caso não caia no if, vamos emitir null
+        subscriber.next(null);
+        subscriber.complete
+      })
+
+      return httpCallObservable;
+
+    }
 }
