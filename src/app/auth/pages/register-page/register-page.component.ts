@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 import { EmailValidator } from '../../../shared/validators/email-validator.service';
-import { ValidatorsService } from 'src/app/shared/services/validator.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 @Component({
   templateUrl: './register-page.component.html',
